@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'core',
     'rest_framework',
     'drf_yasg',
+    'rest_framework.authtoken',
 ]
 
 AUTH_USER_MODEL = 'core.CustomUser'
@@ -100,12 +101,25 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
-    ),
+    ],
+}
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization',
+            'description': 'Token bilan autentifikatsiya qilish uchun quyidagi formatni ishlating: Token <sizning_tokeningiz>',
+        },
+    },
+    'USE_SESSION_AUTH': True,
 }
 
 

@@ -1,5 +1,17 @@
 from rest_framework import serializers
-from .models import CustomUser, Subject, Test, StudentResult
+from .models import Classroom, CustomUser, Subject, Test, StudentResult
+
+
+class ClassroomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Classroom
+        fields = '__all__'
+
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'first_name', 'last_name', 'middle_name', 'image', 'role', 'classroom']
 
 
 class SubjectSerializer(serializers.ModelSerializer):

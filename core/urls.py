@@ -1,8 +1,14 @@
 from django.urls import path
-from .views import SubjectListAPIView, TestListAPIView, SubmitTestAPIView
+from .views import (
+    ClassroomListView, SubjectListView, TestListView, StudentResultListView,
+    LoginView, LogoutView
+)
 
 urlpatterns = [
-    path('subjects/', SubjectListAPIView.as_view(), name='subject-list'),
-    path('tests/<str:subject_id>/', TestListAPIView.as_view(), name='test-list'),
-    path('submit-test/', SubmitTestAPIView.as_view(), name='submit-test'),
+    path('classrooms/', ClassroomListView.as_view(), name='classroom-list'),
+    path('subjects/', SubjectListView.as_view(), name='subject-list'),
+    path('tests/', TestListView.as_view(), name='test-list'),
+    path('student-results/', StudentResultListView.as_view(), name='student-result-list'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
