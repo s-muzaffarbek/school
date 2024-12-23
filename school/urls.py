@@ -2,7 +2,9 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf.urls.static import static
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import obtain_auth_token
+from django.contrib.auth import views as auth_views
 
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
@@ -16,12 +18,14 @@ schema_view = get_schema_view(
         license=openapi.License(name="School Api"),
     ),
     public=True,
-    permission_classes=[permissions.AllowAny, ],
+    permission_classes=[permissions.AllowAny],
+    authentication_classes=[TokenAuthentication],
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('core.urls')),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
 ]
 
 if settings.DEBUG:

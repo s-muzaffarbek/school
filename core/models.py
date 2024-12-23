@@ -4,10 +4,8 @@ from django.db import models
 class Classroom(models.Model):
     name = models.CharField(max_length=100)
 
-
     def __str__(self):
         return self.name
-
 
 
 class CustomUser(AbstractUser):
@@ -23,7 +21,7 @@ class CustomUser(AbstractUser):
 
 class Subject(models.Model):
     name = models.CharField(max_length=100)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, limit_choices_to={'role': 'teacher'})
+    user = models.ManyToManyField(CustomUser)
     description = models.TextField()
 
     def __str__(self):
